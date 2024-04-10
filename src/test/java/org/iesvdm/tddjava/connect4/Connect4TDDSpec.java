@@ -48,7 +48,18 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenDiscOutsideBoardThenRuntimeException() {
-
+        assertThatThrownBy(
+                () -> tested.putDiscInColumn(9))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Invalid column 9");
+        assertThatThrownBy(
+                () -> tested.putDiscInColumn(-1))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Invalid column -1");
+        assertThatThrownBy(
+                () -> tested.putDiscInColumn(-3))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Invalid column -3");
     }
 
     @Test
@@ -66,9 +77,12 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenDiscInsertedThenNumberOfDiscsIncreases() {
-
-
-
+        int discoIniciales = 0;
+        for (int i = 0; i < 7; i++) {
+            tested.putDiscInColumn(i);
+            assertThat(tested.getNumberOfDiscs())
+                    .isEqualTo(discoIniciales+1+i);
+        }
     }
 
     @Test
