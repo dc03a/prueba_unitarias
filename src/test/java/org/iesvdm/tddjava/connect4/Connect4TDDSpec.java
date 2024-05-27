@@ -155,7 +155,12 @@ public class Connect4TDDSpec {
 
     @Test
     public void whenNoDiscCanBeIntroducedTheGamesIsFinished() {
-
+        for (int col = 0; col < 7; col++) {
+            for (int row = 0; row < 6; row++) {
+                tested.putDiscInColumn(col);
+            }
+        }
+        assertThat(tested.isFinished()).isTrue();
     }
 
     /*
